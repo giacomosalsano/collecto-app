@@ -3,9 +3,11 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "allowJs": true
+  },
+  "include": ["models/**/*", "migrations/**/*", "config/**/*", "*.js"],
+  "exclude": ["dist", "node_modules"]
 }
