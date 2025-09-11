@@ -3,6 +3,7 @@ import UserRepository from "../repositories/UserRepository";
 import ProductShareRepository from "../repositories/ProductShareRepository";
 import TransactionRepository from "../repositories/TransactionRepository";
 import { PurchaseRequest } from "../types/purchase";
+import CacheService from "../services/CacheService";
 
 class PurchaseUseCase {
   async execute({ userId, productId, quantity }: PurchaseRequest) {
@@ -55,7 +56,10 @@ class PurchaseUseCase {
           t
         );
 
-        // TODO: Invalidar o cache do usuário aqui
+        await CacheService.invalidate(`collection:${userId}`);
+        
+        // console.log() for debugging. IT SHOULD BE REMOVED IN PRODUCTION.
+        console.log(`CACHE INVALIDATED for key: collection:${userId}`);
 
         return {
           message: `Successfully purchased ${availableCount} shares.`,

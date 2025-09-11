@@ -1,8 +1,9 @@
-import { literal } from "sequelize";
+import { literal, Sequelize } from "sequelize";
 import db from "../../models";
 
 const { Product } = db;
 const { ProductShare } = db;
+const { User } = db;
 
 class ProductRepository {
   async findAllWithShareCounts() {
@@ -26,6 +27,27 @@ class ProductRepository {
     });
 
     return products;
+  }
+
+  async findCollectionByUserId(userId: number) {
+    const collection = await Product.findAll({
+      attributes: [
+        "id",
+        "name",
+        "slug",
+        [Sequelize.fn("COUNT", "ProductShares.id"), "owned_shares"],
+      ],
+      include: [
+        {
+          model: ProductShare,
+          attributes: [],
+          where: { user_id: userId },
+        },
+      ],
+      group: ["Product.id"],
+      raw: true,
+    });
+    return collection;
   }
 }
 
