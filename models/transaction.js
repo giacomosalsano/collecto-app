@@ -20,6 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       quantity: DataTypes.INTEGER,
       price_per_share_in_cents: DataTypes.INTEGER,
       total_price_in_cents: DataTypes.INTEGER,
+      createdAt: {
+        type: DataTypes.DATE,
+        field: "created_at",
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        field: "updated_at",
+      },
     },
     {
       sequelize,

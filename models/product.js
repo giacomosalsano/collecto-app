@@ -16,10 +16,19 @@ module.exports = (sequelize, DataTypes) => {
   Product.init(
     {
       name: DataTypes.STRING,
+      slug: DataTypes.STRING,
       description: DataTypes.TEXT,
       total_value_in_cents: DataTypes.INTEGER,
       total_shares: DataTypes.INTEGER,
       share_price_in_cents: DataTypes.INTEGER,
+      createdAt: {
+        type: DataTypes.DATE,
+        field: "created_at",
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        field: "updated_at",
+      },
     },
     {
       sequelize,
