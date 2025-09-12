@@ -88,8 +88,8 @@ npm run docker:fresh
 
 This will:
 
-- Stop and remove all containers
-- Clear existing data
+- Stop and remove all containers related to `collecto-app`
+- Clear existing data related to `collecto-app`
 
 Wait for:
 

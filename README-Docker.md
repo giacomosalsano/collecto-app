@@ -1,51 +1,8 @@
-# Collecto App - Docker Setup
+# Collecto App - Docker Commands Reference
 
-This project is configured to run completely with Docker, including database, Redis and the Node.js application.
+> **📋 Setup Instructions:** See the main [README.md](./README.md) for complete setup and first-time configuration.
 
-## 🚀 How to use
-
-### 0. First time setup (copy environment file)
-
-```bash
-# Copy the example environment file
-cp docker.example.env docker.env
-```
-
-### 1. To simulate first execution (or clean environment)
-
-```bash
-npm run docker:fresh
-```
-
-This command cleans everything and simulates a completely new environment.
-
-### 2. Start the entire application
-
-```bash
-npm run docker:up
-```
-
-This command will:
-
-- ✅ Build the application image
-- ✅ Start MySQL database
-- ✅ Start Redis
-- ✅ Wait for database to be ready
-- ✅ Run migrations automatically
-- ✅ Run seeders automatically
-- ✅ Start the application in development mode
-
-### 3. Check application logs
-
-```bash
-npm run docker:logs
-```
-
-### 4. Stop all services
-
-```bash
-npm run docker:down
-```
+This document contains Docker-specific commands and troubleshooting information for the Collecto App.
 
 ## 🔧 Useful commands
 
@@ -81,22 +38,11 @@ docker-compose exec app npm run migrate:undo
 docker-compose exec app npm run seed:undo
 ```
 
-## 🌐 Access
+## 🌐 Service Access
 
 - **API**: http://localhost:3000
-- **MySQL**: localhost:3306
+- **MySQL**: localhost:3306 (user: `user`, password: `password`)
 - **Redis**: localhost:6379
-
-## 📋 API Endpoints
-
-The API will be available at `http://localhost:3000` with the following endpoints:
-
-- `GET /` - Health check
-- `POST /collecto/auth/login` - Login
-- `POST /collecto/auth/register` - Register
-- `GET /collecto/products` - List products
-- `GET /collecto/user/collection` - User collection
-- `POST /collecto/purchase` - Purchase product
 
 ## 🐛 Troubleshooting
 
@@ -114,14 +60,13 @@ The API will be available at `http://localhost:3000` with the following endpoint
 ### To clean everything and start from scratch:
 
 ```bash
-docker-compose down -v
-docker system prune -f
+npm run docker:fresh
 npm run docker:up
 ```
 
-## 🔐 Environment Variables
+## 🔐 Docker Environment Variables
 
-The following variables are configured in Docker:
+The following variables are automatically configured in the Docker environment:
 
 - `NODE_ENV=docker`
 - `DB_HOST=db`
@@ -130,25 +75,74 @@ The following variables are configured in Docker:
 - `DB_NAME=collecto_db`
 - `REDIS_HOST=redis`
 - `REDIS_PORT=6379`
-- `JWT_SECRET=your_jwt_secret_here`
 
 ### Environment Files
 
-- `.env.example` - Example environment file for local development (copy to `.env`)
-- `docker.example.env` - Example environment file for Docker (copy to `docker.env`) - **READY TO USE**
+- `docker.example.env` - Example environment file for Docker (copy to `docker.env`)
 - `docker.env` - Environment variables for Docker (used by docker-compose) - **NOT COMMITTED**
 
-### Setup Instructions
+**⚠️ Note:** For production deployments, change sensitive values like `JWT_SECRET`, `DB_PASSWORD`, etc.
 
-1. **For local development:**
+## 🐳 Advanced Docker Commands
 
-   ```bash
-   cp .env.example .env
-   ```
+### Container Management
 
-2. **For Docker:**
-   ```bash
-   cp docker.example.env docker.env
-   ```
+```bash
+# View running containers
+docker-compose ps
 
-**⚠️ Note:** The current configuration uses development values. For production, change sensitive values like `JWT_SECRET`, `DB_PASSWORD`, etc.
+# View container resource usage
+docker stats
+
+# Execute commands inside containers
+docker-compose exec app sh
+docker-compose exec db mysql -u user -p collecto_db
+docker-compose exec redis redis-cli
+
+# View detailed container information
+docker-compose top
+```
+
+### Logs and Debugging
+
+```bash
+# View logs for specific services
+docker-compose logs -f app
+docker-compose logs -f db
+docker-compose logs -f redis
+
+# View logs with timestamps
+docker-compose logs -f -t app
+
+# View last 100 lines of logs
+docker-compose logs --tail=100 app
+```
+
+### Data Management
+
+```bash
+# Backup database
+docker-compose exec db mysqldump -u user -p collecto_db > backup.sql
+
+# Restore database
+docker-compose exec -T db mysql -u user -p collecto_db < backup.sql
+
+# Access Redis data
+docker-compose exec redis redis-cli
+```
+
+### Development Workflow
+
+```bash
+# Rebuild only the app container
+docker-compose build app
+
+# Start only database services (for local development)
+docker-compose up db redis
+
+# Run tests inside container
+docker-compose exec app npm test
+
+# Install new dependencies
+docker-compose exec app npm install package-name
+```
