@@ -90,14 +90,14 @@ For detailed setup instructions, please see the [complete setup guide](./README-
    npm run docker:fresh && npm run docker:up
    ```
 
-  Wait until you see:
+    Wait until you see:
 
-    ```
-    🚀 Server is running on http://localhost:3000
-    ✅ Connected to Redis.
-    ```
+      ```
+      🚀 Server is running on http://localhost:3000
+      ✅ Connected to Redis.
+      ```
 
-**You're ready to go!**
+    **You're ready to go!**
 
 4. Access the services:
    - **API:** http://localhost:3000
