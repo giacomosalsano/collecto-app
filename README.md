@@ -84,7 +84,7 @@ For detailed setup instructions, please see the [complete setup guide](./README-
    # Update JWT_SECRET in both files
    ```
 
-3. Start the application:
+3. Start the application **(Make sure Docker Desktop is running before proceeding.)**:
 
    ```bash
    npm run docker:fresh && npm run docker:up
