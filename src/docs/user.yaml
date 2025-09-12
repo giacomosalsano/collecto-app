@@ -1,0 +1,40 @@
+paths:
+  /collecto/user/collection:
+    get:
+      summary: Get authenticated user's collection
+      description: |
+        Get the collection of shares owned by the authenticated user.
+
+        **Authentication Required**: To authenticate, use the token returned by the login endpoint.
+      tags: [User]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: User collection retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                      example: Patek Philippe Luxury Watch
+                    slug:
+                      type: string
+                      example: patek-philippe-luxury-watch
+                    description:
+                      type: string
+                      example: A timeless watch, symbol of elegance and precision.
+                    owned_shares:
+                      type: number
+                      example: 25
+        401:
+          description: Invalid authentication token
+          message:
+            type: string
+            example: Invalid or expired token.

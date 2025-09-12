@@ -1,0 +1,44 @@
+paths:
+  /collecto/products:
+    get:
+      summary: List all products
+      description: |
+        List all products with respective share counts.
+      tags: [Products]
+      responses:
+        200:
+          description: Products list retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    name:
+                      type: string
+                      example: Patek Philippe Luxury Watch
+                    slug:
+                      type: string
+                      example: patek-philippe-luxury-watch
+                    description:
+                      type: string
+                      example: A timeless watch, symbol of elegance and precision.
+                    total_value_in_cents:
+                      type: number
+                      example: 2500000
+                    share_price_in_cents:
+                      type: number
+                      example: 25000
+                    total_shares:
+                      type: number
+                      example: 100
+                    available_shares:
+                      type: number
+                      example: 25
+                    sold_shares:
+                      type: number
+                      example: 75
