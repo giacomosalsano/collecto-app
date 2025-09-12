@@ -1,203 +1,107 @@
-# 🚀 Setup & Run Guide
+# Collecto App
 
-# Step 0 — Clone the Repository
+A sophisticated investment platform that enables users to purchase fractional shares of products through a secure, scalable backend API with Docker containerization and real-time caching.
 
-Before getting started, make sure you have cloned the project to your local machine.
+### Tech Stack
 
-## 📥 Clone the project:
+- **Framework:** Node.js with Express.js
+- **Language:** TypeScript
+- **Database:** MySQL 8.0 with Sequelize ORM
+- **Caching:** Redis 6.2
+- **Authentication:** JWT (JSON Web Tokens) with bcryptjs
+- **API Documentation:** Swagger/OpenAPI
+- **Containerization:** Docker & Docker Compose
+- **Testing:** Jest with TypeScript support
+- **Migration Management:** Sequelize CLI
+- **Key Libraries/Services:** Express, Sequelize, Redis, JWT, Swagger
 
-```bash
-git clone https://github.com/giacomosalsano/collecto-app.git
+<div align="center" style="display: inline_block justify-center"><br>
+  <img src="https://skillicons.dev/icons?i=typescript,nodejs,mysql,redis,docker,express,jest,sequelize" alt="icons" /> </div>
+
+## 🚀 Main Features
+
+- **Fractional Share Investment** - Purchase partial ownership of products with flexible quantities
+- **Secure Authentication** - JWT-based authentication with bcrypt password hashing
+- **Real-time Portfolio Management** - View and manage investment collections with Redis caching
+- **Transaction Processing** - Atomic database transactions ensuring data consistency
+- **API Documentation** - Complete Swagger/OpenAPI documentation for all endpoints
+- **Docker Infrastructure** - Containerized deployment with MySQL and Redis services
+
+## 📊 Core Application Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant API
+    participant Database
+    participant Redis
+
+    User->>Frontend: Login with credentials
+    Frontend->>API: POST /collecto/login
+    API->>Database: Validate user credentials
+    Database-->>API: Return user data
+    API-->>Frontend: Return JWT token
+    Frontend->>User: Authentication successful
+
+    User->>Frontend: Browse available products
+    Frontend->>API: GET /collecto/products
+    API->>Database: Fetch products with share counts
+    Database-->>API: Return product data
+    API-->>Frontend: Return product catalog
+    Frontend->>User: Display available investments
+
+    User->>Frontend: Purchase product shares
+    Frontend->>API: POST /collecto/purchase
+    API->>Database: Start transaction
+    API->>Database: Check share availability
+    API->>Database: Validate user balance
+    API->>Database: Update user balance
+    API->>Database: Mark shares as sold
+    API->>Database: Create transaction record
+    API->>Redis: Invalidate user cache
+    Database-->>API: Transaction completed
+    API-->>Frontend: Return purchase confirmation
+    Frontend->>User: Display success message
 ```
 
-This command will download all project files and create a folder named `collecto-app` in your current directory
+## ⚡ How to Run Locally
 
-### 💡 Tip:
+For detailed setup instructions, please see the [complete setup guide](./README-Setup.md).
 
-To clone the repository into a folder with another name, use:
+1. Clone the repository:
 
-```bash
-git clone https://github.com/giacomosalsano/collecto-app.git your-folder-name
-```
+   ```bash
+   git clone https://github.com/giacomosalsano/collecto-app.git
+   cd collecto-app
+   ```
 
-Replace `your-folder-name` with the desired directory name.
-
----
-
-# Step 1 — Environment Configuration
-
-1. **Copy the example environment files:**
+2. Configure environment variables:
 
    ```bash
    cp .env.example .env
    cp docker.example.env docker.env
+   # Update JWT_SECRET in both files
    ```
 
-1. The default values in both `.env` and `docker.env` are safe for development use.
+3. Start the application:
 
-   ✅ **No sensitive data is included.**
+   ```bash
+   npm run docker:fresh && npm run docker:up
+   ```
 
-1. The only required change:
-   - Update the `JWT_SECRET` field in **both** files to a secure value of your choice.
+4. Access the services:
+   - **API:** http://localhost:3000
+   - **Swagger Docs:** http://localhost:3000/api-docs
+   - **MySQL:** localhost:3306
+   - **Redis:** localhost:6379
 
----
+## 📚 Learn More
 
-# Step 2 — Start Docker Desktop
+For full details on architecture, features, components, and improvement suggestions, please see the [complete documentation](./documentation.md).
 
-Make sure **Docker Desktop** is running before proceeding.
-
-📦 This project uses Docker to manage the API, MySQL, and Redis services.
-
----
-
-# Step 3 — Start the Application
-
-## 1️⃣ Option 1 — First-Time Setup (Recommended)
-
-Run the following command to reset and start everything fresh:
-
-```bash
-npm run docker:fresh && npm run docker:up
-```
-
-✅ This will:
-
-- Clean environment
-- Build the app
-- Run migrations and seeders
-- Start all services
-
-Wait until you see:
-
-```
-🚀 Server is running on http://localhost:3000
-✅ Connected to Redis.
-```
-
-**You're ready to go!**
+For Docker-specific commands and troubleshooting, see [Docker Commands Reference](./README-Docker.md).
 
 ---
 
-## 🔁 Option 2 — Run Commands Separately
-
-### Step 2.1 — Clean the Environment
-
-```bash
-npm run docker:fresh
-```
-
-This will:
-
-- Stop and remove all containers related to `collecto-app`
-- Clear existing data related to `collecto-app`
-
-Wait for:
-
-```
-✅ Environment cleaned!
-🚀 Now run: npm run docker:up
-
-```
-
-### Step 2.2 — Start Services
-
-```bash
-npm run docker:up
-```
-
-This command will:
-
-1. ✅ Download MySQL and Redis images
-2. ✅ Build the application image
-3. ✅ Create and run containers
-4. ✅ Apply database migrations
-5. ✅ Run seed data
-6. ✅ Start the API server
-
-You’ll see:
-
-```
-🚀 Server is running on http://localhost:3000
-✅ Connected to Redis.
-
-```
-
----
-
-### ✅ Once you complete the Step 2 you’ll be able to access
-
-- **API:** [http://localhost:3000](http://localhost:3000/)
-- **Swagger Docs:** http://localhost:3000/api-docs
-- **MySQL:** `localhost:3306` (`user: user`, `password: password`)
-- **Redis:** `localhost:6379`
-
-The API will be available at `http://localhost:3000` with the following endpoints:
-
-- `POST /collecto/login` - Login
-- `GET /collecto/products` - List products
-- `POST /collecto/purchase` - Purchase product
-- `GET /collecto/user/collection` - User collection
-
----
-
-# Step 4 — Testing the API
-
-## ✅ Option A: Swagger (Recommended)
-
-Open your browser and go to: http://localhost:3000/api-docs
-
-Explore and test all endpoints via **Swagger UI**.
-
----
-
-## 🧪 Option B: Postman (or other API tools)
-
-### 🔐 1. Login (Authentication)
-
-- **Method:** `POST`
-- **URL:** `http://localhost:3000/collecto/login`
-- **Body:**
-
-```json
-{
-  "email": "tom@email.com",
-  "password": "password"
-}
-```
-
-ℹ️ Save the returned token — you'll need it for authenticated requests.
-
----
-
-### 📦 2. Get All Products
-
-- **Method:** `GET`
-- **URL:** `http://localhost:3000/collecto/products`
-- **Authentication:** Not required
-- No params or body needed — just hit `Send` to get the list of products.
-
----
-
-### 🛒 3. Purchase Product
-
-- **Method:** `POST`
-- **URL:** `http://localhost:3000/collecto/purchase`
-- **Headers:** Add the token as `Authorization: Bearer <token_provided_in_login_endpoint>`
-- **Body Example:**
-
-```json
-{
-  "product_id": 1,
-  "quantity": 25
-}
-```
-
----
-
-### 🎒 4. Get User's Collection
-
-- **Method:** `GET`
-- **URL:** `http://localhost:3000/collecto/user/collection`
-- **Headers:** Add the token as `Authorization: Bearer <token_provided_in_login_endpoint>`
-
-Returns the list of products the user owns.
+made with ♥ by [giacomosalsano](https://giacomosalsano.com)!
