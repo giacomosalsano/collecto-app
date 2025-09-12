@@ -63,8 +63,12 @@ collecto-app/
 
 ## 🔐 Authentication & Security
 
-- **Auth Flow:** Users authenticate via email/password, receive JWT tokens with 12-hour expiration, tokens are validated on protected routes, and sessions are stateless for scalability.
-- **Key Auth Files:** `AuthController.ts` handles login requests, `AuthUseCase.ts` manages authentication logic with bcrypt password hashing, `authMiddleware.ts` validates JWT tokens on protected endpoints, and `UserRepository.ts` manages user data persistence.
+- **Auth Flow:** Users authenticate via email/password, receive `JWT` tokens with 12-hour expiration, tokens are validated on protected routes, and sessions are stateless for scalability.
+- **Key Auth Files:** 
+    - `AuthController.ts`: handles login requests;
+    - `AuthUseCase.ts`: manages authentication logic with `bcrypt` password hashing;
+    - `authMiddleware.ts`: validates JWT tokens on protected endpoints;
+    - `UserRepository.ts`: manages user data persistence.
 
 ---
 
@@ -73,8 +77,8 @@ collecto-app/
 ### 1. User Authentication & Management
 
 - Users can authenticate with email and password through the `/collecto/login` endpoint
-- JWT tokens are generated with user information and 12-hour expiration
-- Password hashing is handled with bcryptjs for security
+- `JWT` tokens are generated with user information and 12-hour expiration
+- Password hashing is handled with `bcryptjs` for security
 - User balance and profile information are managed through the User model
 
 ### 2. Product Catalog & Share Management
@@ -92,11 +96,11 @@ collecto-app/
 - User balance is automatically updated after successful purchases
 - Cache invalidation maintains data consistency across the system
 
-### 4. Portfolio Management
+### 4. Collection Management
 
 - Users can view their investment portfolio through `/collecto/user/collection`
-- Collection data is cached in Redis for improved performance
-- Portfolio includes purchased shares, quantities, and current values
+- Collection data is cached in `Redis` for improved performance
+- Collection includes purchased shares, quantities, and current values
 - Real-time updates reflect recent purchases and market changes
 
 ---
@@ -106,7 +110,7 @@ collecto-app/
 - **AuthController:** Handles user authentication requests and JWT token generation
 - **ProductController:** Manages product catalog operations and share availability
 - **PurchaseController:** Processes investment transactions with validation
-- **CollectionController:** Retrieves and displays user portfolio information
+- **CollectionController:** Retrieves and displays user collection information
 - **AuthMiddleware:** Validates JWT tokens and protects authenticated routes
 - **CacheService:** Manages Redis caching for improved performance
 - **UserRepository:** Handles user data persistence and retrieval operations
