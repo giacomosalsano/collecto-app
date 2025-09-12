@@ -1,15 +1,18 @@
-import { createClient, RedisClientType } from 'redis';
+import { createClient, RedisClientType } from "redis";
 
 class CacheService {
   private client: RedisClientType;
   private isConnected = false;
 
   constructor() {
+    const redisHost = process.env.REDIS_HOST || "localhost";
+    const redisPort = process.env.REDIS_PORT || "6379";
+
     this.client = createClient({
-      url: 'redis://localhost:6379'
+      url: `redis://${redisHost}:${redisPort}`,
     });
 
-    this.client.on('error', (err) => console.error('Redis Client Error', err));
+    this.client.on("error", (err) => console.error("Redis Client Error", err));
 
     this.connect();
   }
@@ -18,7 +21,7 @@ class CacheService {
     if (!this.isConnected) {
       await this.client.connect();
       this.isConnected = true;
-      console.log('✅ Connected to Redis.');
+      console.log("✅ Connected to Redis.");
     }
   }
 
@@ -34,10 +37,14 @@ class CacheService {
     }
   }
 
-  async set(key: string, value: any, expirationTimeInSeconds: number = 3600): Promise<void> {
+  async set(
+    key: string,
+    value: any,
+    expirationTimeInSeconds: number = 3600
+  ): Promise<void> {
     try {
       const data = JSON.stringify(value);
-      
+
       await this.client.set(key, data, { EX: expirationTimeInSeconds });
     } catch (error) {
       console.error(`Error setting data to Redis for key ${key}`, error);
