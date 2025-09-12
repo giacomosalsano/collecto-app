@@ -50,5 +50,4 @@ paths:
           description: Insufficient balance or shares
           message:
             type: string
-            example: Insufficient balance.
-            example: No shares available for this product.
+            example: Insufficient balance. || No shares available for this product.
