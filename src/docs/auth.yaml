@@ -20,7 +20,7 @@ paths:
                 email:
                   type: string
                   format: email
-                  example: giacomo@email.com
+                  example: tom@email.com
                 password:
                   type: string
                   example: password
@@ -40,10 +40,10 @@ paths:
                         example: 2
                       email:
                         type: string
-                        example: giacomo@email.com
+                        example: tom@email.com
                       name:
                         type: string
-                        example: Giacomo
+                        example: Tom Builder
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...

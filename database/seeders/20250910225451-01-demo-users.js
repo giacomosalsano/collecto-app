@@ -11,8 +11,8 @@ module.exports = {
       "Users",
       [
         {
-          name: "Domitila Rebeca",
-          email: "domitila@email.com",
+          name: "John Doe",
+          email: "john@email.com",
           password: hashedPassword,
           balance_in_cents: 1000000,
           created_at: new Date(),
@@ -22,7 +22,7 @@ module.exports = {
           name: "Giacomo",
           email: "giacomo@email.com",
           password: hashedPassword,
-          balance_in_cents: 100000000,
+          balance_in_cents: 500000000,
           created_at: new Date(),
           updated_at: new Date(),
         },
@@ -30,7 +30,7 @@ module.exports = {
           name: "Tom Builder",
           email: "tom@email.com",
           password: hashedPassword,
-          balance_in_cents: 500000,
+          balance_in_cents: 100000000,
           created_at: new Date(),
           updated_at: new Date(),
         },
