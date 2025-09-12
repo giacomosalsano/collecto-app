@@ -84,11 +84,20 @@ For detailed setup instructions, please see the [complete setup guide](./README-
    # Update JWT_SECRET in both files
    ```
 
-3. Start the application **(Make sure Docker Desktop is running before proceeding.)**:
+3. Start the application **(Make sure Docker Desktop is running before proceeding)**:
 
    ```bash
    npm run docker:fresh && npm run docker:up
    ```
+
+Wait until you see:
+
+```
+🚀 Server is running on http://localhost:3000
+✅ Connected to Redis.
+```
+
+**You're ready to go!**
 
 4. Access the services:
    - **API:** http://localhost:3000
