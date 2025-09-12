@@ -1,10 +1,10 @@
 # 🚀 Setup & Run Guide
 
-# Step 0 — Clone the Repository
+## Step 0 — Clone the Repository
 
 Before getting started, make sure you have cloned the project to your local machine.
 
-## 📥 Clone the project:
+### 📥 Clone the project:
 
 ```bash
 git clone https://github.com/giacomosalsano/collecto-app.git
@@ -12,19 +12,9 @@ git clone https://github.com/giacomosalsano/collecto-app.git
 
 This command will download all project files and create a folder named `collecto-app` in your current directory
 
-### 💡 Tip:
-
-To clone the repository into a folder with another name, use:
-
-```bash
-git clone https://github.com/giacomosalsano/collecto-app.git your-folder-name
-```
-
-Replace `your-folder-name` with the desired directory name.
-
 ---
 
-# Step 1 — Environment Configuration
+## Step 1 — Environment Configuration
 
 1. **Copy the example environment files:**
 
@@ -33,16 +23,16 @@ Replace `your-folder-name` with the desired directory name.
    cp docker.example.env docker.env
    ```
 
-1. The default values in both `.env` and `docker.env` are safe for development use.
+2. The default values in both `.env` and `docker.env` are safe for development use.
 
    ✅ **No sensitive data is included.**
 
-1. The only required change:
+3. The only required change:
    - Update the `JWT_SECRET` field in **both** files to a secure value of your choice.
 
 ---
 
-# Step 2 — Start Docker Desktop
+## Step 2 — Start Docker Desktop
 
 Make sure **Docker Desktop** is running before proceeding.
 
@@ -50,9 +40,9 @@ Make sure **Docker Desktop** is running before proceeding.
 
 ---
 
-# Step 3 — Start the Application
+## Step 3 — Start the Application
 
-## 1️⃣ Option 1 — First-Time Setup (Recommended)
+### 1️⃣ Option 1 — First-Time Setup (Recommended)
 
 Run the following command to reset and start everything fresh:
 
@@ -78,9 +68,9 @@ Wait until you see:
 
 ---
 
-## 🔁 Option 2 — Run Commands Separately
+### 🔁 Option 2 — Run Commands Separately
 
-### Step 2.1 — Clean the Environment
+#### Step 3.1 — Clean the Environment
 
 ```bash
 npm run docker:fresh
@@ -96,10 +86,9 @@ Wait for:
 ```
 ✅ Environment cleaned!
 🚀 Now run: npm run docker:up
-
 ```
 
-### Step 2.2 — Start Services
+#### Step 3.2 — Start Services
 
 ```bash
 npm run docker:up
@@ -114,17 +103,16 @@ This command will:
 5. ✅ Run seed data
 6. ✅ Start the API server
 
-You’ll see:
+You'll see:
 
 ```
 🚀 Server is running on http://localhost:3000
 ✅ Connected to Redis.
-
 ```
 
 ---
 
-### ✅ Once you complete the Step 2 you’ll be able to access
+### ✅ Once you complete Step 3 you'll be able to access
 
 - **API:** [http://localhost:3000](http://localhost:3000/)
 - **Swagger Docs:** http://localhost:3000/api-docs
@@ -140,9 +128,9 @@ The API will be available at `http://localhost:3000` with the following endpoint
 
 ---
 
-# Step 4 — Testing the API
+## Step 4 — Testing the API
 
-## ✅ Option A: Swagger (Recommended)
+### ✅ Option A: Swagger (Recommended)
 
 Open your browser and go to: http://localhost:3000/api-docs
 
@@ -150,9 +138,9 @@ Explore and test all endpoints via **Swagger UI**.
 
 ---
 
-## 🧪 Option B: Postman (or other API tools)
+### 🧪 Option B: Postman (or other API tools)
 
-### 🔐 1. Login (Authentication)
+#### 🔐 1. Login (Authentication)
 
 - **Method:** `POST`
 - **URL:** `http://localhost:3000/collecto/login`
@@ -165,11 +153,11 @@ Explore and test all endpoints via **Swagger UI**.
 }
 ```
 
-ℹ️ Save the returned token — you'll need it for authenticated requests.
+ℹ️ Save the returned token — you'll need it for authenticated requests.
 
 ---
 
-### 📦 2. Get All Products
+#### 📦 2. Get All Products
 
 - **Method:** `GET`
 - **URL:** `http://localhost:3000/collecto/products`
@@ -178,7 +166,7 @@ Explore and test all endpoints via **Swagger UI**.
 
 ---
 
-### 🛒 3. Purchase Product
+#### 🛒 3. Purchase Product
 
 - **Method:** `POST`
 - **URL:** `http://localhost:3000/collecto/purchase`
@@ -194,7 +182,7 @@ Explore and test all endpoints via **Swagger UI**.
 
 ---
 
-### 🎒 4. Get User's Collection
+#### 🎒 4. Get User's Collection
 
 - **Method:** `GET`
 - **URL:** `http://localhost:3000/collecto/user/collection`
