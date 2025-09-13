@@ -105,6 +105,8 @@ For detailed setup instructions, please see the [complete setup guide](./README-
    - **MySQL:** localhost:3306
    - **Redis:** localhost:6379
 
+    **If you're having problems to connect the API:** Repeat the Step 3 and try again!
+
 ## 📚 Learn More
 
 For full details on architecture, features, components, and improvement suggestions, please see the [complete documentation](./documentation.md).

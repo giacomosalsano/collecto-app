@@ -126,6 +126,8 @@ The API will be available at `http://localhost:3000` with the following endpoint
 - `POST /collecto/purchase` - Purchase product
 - `GET /collecto/user/collection` - User collection
 
+**If you're having problems to connect the API:** Repeat the Step 3 and try again!
+
 ---
 
 ## Step 4 — Testing the API
