@@ -6,8 +6,6 @@ export interface Product {
   total_value_in_cents: number;
   share_price_in_cents: number;
   total_shares: number;
-  available_shares: number;
-  sold_shares: number;
 }
 
 export interface ProductsWithShareCounts extends Product {
